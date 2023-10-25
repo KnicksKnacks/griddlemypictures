@@ -1,0 +1,77 @@
+.spin{
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from{ 
+    transform: rotate(0deg);
+  }
+  to{ 
+    transform: rotate(359deg);
+  }
+}
+
+
+.albumModal{
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px
+}
+
+.albumDisplay {
+  position: relative; /* Set to relative to contain the sticky title bar */
+  max-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.titleBar {
+  background-color: #ffffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 10px;  
+  font-size: 3rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex: 0 0 auto;
+}
+
+.albumContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex: 1 1;
+  overflow: auto;
+}
+
+.albumCard {  
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: radial-gradient( circle farthest-corner at 10% 20%, #d9e0ff 0%, #e8e8e8 100% );
+  display: flex;
+  flex-flow: column;
+  max-width: 200px;
+}
+
+.albumCard img {
+  max-width: 100%;
+  height: auto;
+}
+
+.albumCard h3 {
+  margin: 0;
+  padding-top: 10px;
+}

@@ -1,0 +1,51 @@
+.main_row{
+  display: flex;
+  flex-flow: row;
+  max-width: 100vw;
+  flex: 1;
+  justify-content: space-around;
+  overflow-y: hidden;
+}
+
+fieldset {
+  display: inline;
+  font-size: x-small;
+}
+fieldset legend{
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#TheApp{
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+#page-layout input{
+  width: 30px;
+}
+
+
+.loading_bar{
+  display: inline-block;
+  width: 7vw;
+  height: 70%;
+  background-color: aliceblue;
+  margin: .5vw;
+}
+
+.loading_bar_loaded{
+  height: 100%;
+  display: inline-block;
+  background-color: aquamarine;
+}
+
+.control_buttons{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}

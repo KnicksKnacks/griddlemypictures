@@ -1,0 +1,105 @@
+.photoCell{  
+  height: 50vh;
+  aspect-ratio: 2;
+  overflow: hidden;
+  background-color: lavenderblush;
+  position: relative;
+}
+.photoCell img {
+  position: absolute;
+}
+
+
+
+
+.stretchy{
+  display: flex;    
+  flex: 1;
+  background-color: black;
+}
+
+.stretchy_row{
+  flex-flow: row nowrap;
+}
+
+.page>.stretchy_col>.stretchy_row:last-of-type{
+  margin-bottom: 5px;
+}
+.page>.stretchy_col{
+  margin-left: 5px;
+}
+.stretchy_col{
+  flex-flow: column nowrap;
+}
+
+.stretchy_leaf{    
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  margin: 5px 5px 0 0;
+}
+
+.page img{
+  position: absolute;
+}
+
+.page{
+  /* aspect-ratio: calc(11/8.5); */
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: black;  
+}
+
+.main_page{
+  margin: 0 10px;
+  flex: 0 0 auto;
+  position: relative;
+  display: none;  
+}
+
+.the_page{
+  display: flex;
+}
+
+.page *{
+  box-sizing: border-box;    
+}
+
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+}
+
+
+.grids{
+  display: flex;
+  flex-flow: row nowrap;
+  max-width: 100%;
+  overflow: scroll;
+  flex: 0 0 auto;
+  padding: 5px 0;
+}
+.grids div{
+  margin: 0px;
+}
+
+.grids .stretchy{
+  margin: 0;
+}
+.grids .stretchy_leaf{
+  margin: 1px 1px 0 0 ;
+}
+.grids .page>.stretchy_col>.stretchy_row:last-of-type{
+  margin-bottom: 0;
+}
+
+.grids>div{
+  margin: 5px;
+  border: solid black 3px;
+  height: 15vh;
+  aspect-ratio: calc(11/8.5);
+  display: flex;
+  flex-flow: column;
+}
