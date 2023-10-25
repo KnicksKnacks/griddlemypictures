@@ -121,7 +121,7 @@ function boundsCheck(cell: Draft<PhotoCellData>) {
 }
 
 function center(cell: Draft<PhotoCellData>, poolPhoto: PoolPhoto) {
-  const faceCenter = poolPhoto?.centerFace;
+  const faceCenter = poolPhoto?.centerFace || poolPhoto?.aiCenter;
   if (!faceCenter) return;
   let cx = faceCenter.x * cell.w;
   if (cx > cell.dstW / 2) cell.x = cell.dstW / 2 - cx;
