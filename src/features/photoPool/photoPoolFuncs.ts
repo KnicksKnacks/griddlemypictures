@@ -15,8 +15,8 @@ import {
   ObjectDetectionPrediction,
   SessionParams
 } from "@visheratin/web-ai";
-import { MediaItem } from "./GooglePhotosTypes";
-import { googlePhotosConfig } from "./GooglePhotos";
+import { MediaItem } from "../googlePhotos/GooglePhotosTypes";
+import { googlePhotosConfig } from "../googlePhotos/GooglePhotos";
 
 const imgBlob = localforage.createInstance({ name: "imgBlob" });
 export const blobUrlMap = new Map<string, string>();

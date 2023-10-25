@@ -9,7 +9,7 @@ import { pagesReducer } from '../features/pages/pagesSlice';
 import { settingsReducer } from '../features/settings/settingsSlice';
 import { undoReducer } from '../features/undo';
 import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
-import { googleAlbumReducer } from '../features/photoPool/googleAlbumsSlice';
+import { googleAlbumReducer } from '../features/googlePhotos/googleAlbumsSlice';
 
 
 

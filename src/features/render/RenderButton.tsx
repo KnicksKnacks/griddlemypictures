@@ -42,7 +42,7 @@ import {
   selectAllPoolPhotos,
   selectImage,
 } from "../photoPool/photoPoolSlice";
-import { LinkGooglePhotos } from "../photoPool/GooglePhotos";
+import { LinkGooglePhotos } from "../googlePhotos/GooglePhotos";
 
 function DownloadOneButton() {
   const dispatch = useAppDispatch();

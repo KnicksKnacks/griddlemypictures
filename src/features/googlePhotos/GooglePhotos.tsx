@@ -10,7 +10,7 @@ import {
 } from "./googleAlbumsSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { MediaItem } from "./GooglePhotosTypes";
-import { LoadUrls } from "./photoPoolFuncs";
+import { LoadUrls } from "../photoPool/photoPoolFuncs";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./GooglePhotos.module.css";
