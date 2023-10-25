@@ -77,7 +77,8 @@
   display: flex;
   flex-flow: row nowrap;
   max-width: 100%;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: clip;
   flex: 0 0 auto;
   padding: 5px 0;
 }
