@@ -438,7 +438,7 @@ function ResolutionSettings() {
 function GithubButton() {
   return (
     <>
-      <a href="https://github.com/KnicksKnacks/griddlemypictures" style={{margin: '10px 0'}}>
+      <a href="https://github.com/KnicksKnacks/griddlemypictures" style={{margin: '0 10px'}}>
         <svg viewBox="0 0 98 96" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"
