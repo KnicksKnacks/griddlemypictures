@@ -1,6 +1,7 @@
 # [Griddle My Pictures](https://griddlemypictures.com/)
 ###### aka photo book creator 
 ---
+[output_cropped.webm](https://github.com/KnicksKnacks/griddlemypictures/assets/26859764/dadb7860-425e-4cfb-93a8-031d05890539)
 
 ## Purpose
 Every year I make a year-in-review photobook as a gift for family. This has been a labor intensive process involving winnowing down a years worth of pictures, selecting an online service for creating layouts, uploading all of the images to that service, and creating the layouts. I wanted to streamline this process (and learn more about web programming). 
