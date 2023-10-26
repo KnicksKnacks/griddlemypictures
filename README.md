@@ -92,6 +92,7 @@ This controls the dimensions and resolution of the generated images.  The defaul
 
 ##### Clear All Data
 Deletes everything.  All Image data and page layout data is cleared. **This cannot be undone!!**
+
 ---
 ## Technical 
 - Written in React
