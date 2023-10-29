@@ -211,26 +211,35 @@ async function DetectFaces(name: string, img: HTMLImageElement) {
 }
 
 async function aiHelper(name: string, img: HTMLImageElement) {
-  if (img) await DetectFaces(name, img);
+  await DetectFaces(name, img);
   await webAiProcess({
     name: name,
     dataUrl: getSmallDataUrl(img, 300),
   });
 }
+
+
+let startTime=null as null|number;
 const q = [] as (() => Promise<void>)[];
 
 async function doQ() {
-  const top = q.pop();
-  if (top) {
-    await top();
-    setTimeout(doQ, 0);
+  while (q.length>0){
+    const top = q.pop();  
+    if (top) {
+      await top();    
+    }
+  }
+  if (startTime){
+    console.log(`elapsed ${Date.now()-startTime}`);    
+    startTime=null;
   }
 }
 
 function loadFile(file: File) {
   const name = file.name;    
+  startTime=Date.now();
   q.push(async()=>{
-    LoadIt(name,async()=>{
+    return LoadIt(name,async()=>{
       const arrayBuf = await file.arrayBuffer();
       const blob = new Blob([arrayBuf], { type: file.type });
       return blob
@@ -242,6 +251,7 @@ export function loadFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.startsWith("image/")) loadFile(files[i]);
     }
+    doQ();
     doQ();
 };
 
