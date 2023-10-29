@@ -27,10 +27,12 @@
 .selected_photo_area{
  flex: auto;
  max-width: 50%;
+ width: 50%;
  max-height: 100%;
  overflow: hidden;
  display: flex;
  flex-direction: column;
+ margin: 0 5px;
 }
 
 .selected_photo_byHeight{

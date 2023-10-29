@@ -3,8 +3,9 @@
   flex-flow: row;
   max-width: 100vw;
   flex: 1;
-  justify-content: space-around;
+  justify-content: start;
   overflow-y: hidden;
+  margin-bottom: 5px;
 }
 
 fieldset {

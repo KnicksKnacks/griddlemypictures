@@ -13,10 +13,10 @@ function ShowPhotoCell() {
       <AppButtons />
       <PageSelection />
       <div className="main_row">
+        <GridSelection />
         <MainPage />
-        <SelectedPhoto />
-      </div>
-      <GridSelection />
+        <SelectedPhoto />        
+      </div>      
     </div>
   );
 }
