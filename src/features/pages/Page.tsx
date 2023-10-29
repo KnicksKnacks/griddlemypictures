@@ -37,38 +37,39 @@ export function Page({
   );
 }
 
+function scaleFunc() {
+  const thePage = document.querySelector(`.${styles.the_page}`) as HTMLDivElement;    
+  const wrapper = document.querySelector("#wrapper")as HTMLDivElement;
+  let scale = 1;
+  if (thePage && wrapper) {
+    scale = Math.min(
+      scale,
+      wrapper.clientHeight / thePage.clientHeight
+    );
+    scale = Math.min(
+      scale,
+      wrapper.clientWidth / thePage.clientWidth
+    );
+   }
+  if (thePage){
+     thePage.style.scale = `${scale}`;
+  }
+}
+
 export function MainPage() {
   const pageState = useAppSelector(getCurrentPage);
   const settings = useAppSelector(getSettings);
 
-  function scaleFunc() {
-    const thePage = document.querySelector(`.${styles.the_page}`) as HTMLDivElement;    
-    const wrapper = document.querySelector("#wrapper");
-    let scale = 1;
-    if (thePage && wrapper) {
-      scale = Math.min(
-        scale,
-        wrapper.clientHeight / thePage.clientHeight
-      );
-      scale = Math.min(
-        scale,
-        wrapper.clientWidth / thePage.clientWidth
-      );
-    }
-    if (thePage){
-       thePage.style.scale = `${scale}`;
-    }
-  }
-  const cachedScaleFunc = useCallback(scaleFunc,[]);
+    
   useEffect(() => {
-    window.addEventListener("resize", cachedScaleFunc);
+    window.addEventListener("resize", scaleFunc);
     return () => {
-      window.removeEventListener("resize", cachedScaleFunc);
+      window.removeEventListener("resize", scaleFunc);
     };
-  });
+  },[]);
   useEffect(() => {
-    cachedScaleFunc();
-  }, [pageState, settings.heightInches, settings.widthInches, cachedScaleFunc]);
+    scaleFunc();
+  }, [pageState, settings.heightInches, settings.widthInches]);
 
 
   const pages = useAppSelector(getAllPages).map(page=>(
