@@ -48,7 +48,13 @@ export function SelectedPhoto() {
       imgClass = styles.selected_photo_byWidth;    
     }
     
-    child = <img src={selectedPhoto.srcUrl} className={imgClass} alt="" onClick={onClick} title={"Click To Unselect\nPress Number Key To Rate Image"}></img>;
+    child = (<>
+    <div>{selectedPhoto.rating}</div>
+    <div className={styles.selected_photo_overlay_wrapper}>
+      <canvas className={styles.selected_photo_overlay}></canvas>
+      <img src={selectedPhoto.srcUrl} className={imgClass} alt="" onClick={onClick} title={"Click To Unselect\nPress Number Key To Rate Image"}></img>
+    </div>
+    </>);
   }
 
   return (
