@@ -3,10 +3,12 @@ import {
   getMessage,
   getSelectedPoolPhoto,
   rateImage,
+  removeImage,
   selectImage,
 } from "./photoPoolSlice";
 import styles from "./PhotoPool.module.css";
 import { useEffect, useRef } from "react";
+import trashIcon from './trash.svg'
 
 export function SelectedPhoto() {
   const dispatch = useAppDispatch();
@@ -16,8 +18,15 @@ export function SelectedPhoto() {
   const containerElem = useRef<HTMLDivElement>(null);
 
   function onClick() {
-    dispatch(selectImage(null));
+    dispatch(selectImage(null));  
   }
+  
+  function trashOnClick(){
+    const name = selectedPhoto?.id;
+    if (name)
+      dispatch(removeImage(name));
+  }
+
   useEffect(() => {
     function key(e: KeyboardEvent) {
       let val = parseInt(e.key);
@@ -49,7 +58,10 @@ export function SelectedPhoto() {
     }
     
     child = (<>
-    <div>{selectedPhoto.rating}</div>
+    <div className={styles.select_photo_controls}>
+      {selectedPhoto.rating} 
+      <button onClick={trashOnClick}><img src={trashIcon} style={{height:'1.2em'}} alt="trash"/></button>
+      </div>
     <div className={styles.selected_photo_overlay_wrapper}>
       <canvas className={styles.selected_photo_overlay}></canvas>
       <img src={selectedPhoto.srcUrl} className={imgClass} alt="" onClick={onClick} title={"Click To Unselect\nPress Number Key To Rate Image"}></img>
