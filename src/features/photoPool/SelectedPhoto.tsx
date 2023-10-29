@@ -29,7 +29,7 @@ export function SelectedPhoto() {
     return () => {
       document.removeEventListener("keydown", key);
     };
-  });
+  },[dispatch]);
 
   let child = <></>;
   if (message) {
