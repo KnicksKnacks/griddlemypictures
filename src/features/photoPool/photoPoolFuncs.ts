@@ -17,6 +17,7 @@ import {
 } from "@visheratin/web-ai";
 import { MediaItem } from "../googlePhotos/GooglePhotosTypes";
 import { googlePhotosConfig } from "../googlePhotos/GooglePhotos";
+import { setLoadingProgress } from "../settings/settingsSlice";
 
 const imgBlob = localforage.createInstance({ name: "imgBlob" });
 export const blobUrlMap = new Map<string, string>();
@@ -221,23 +222,26 @@ async function aiHelper(name: string, img: HTMLImageElement) {
 
 let startTime=null as null|number;
 const q = [] as (() => Promise<void>)[];
+let qTotal=1;
+let qDone=1;
+async function doQ() {    
 
-async function doQ() {
   while (q.length>0){
     const top = q.pop();  
     if (top) {
       await top();    
     }
+    store.dispatch(setLoadingProgress((++qDone)/qTotal));
   }
   if (startTime){
+    store.dispatch(setLoadingProgress(1));
     console.log(`elapsed ${Date.now()-startTime}`);    
     startTime=null;
   }
 }
 
 function loadFile(file: File) {
-  const name = file.name;    
-  startTime=Date.now();
+  const name = file.name;      
   q.push(async()=>{
     return LoadIt(name,async()=>{
       const arrayBuf = await file.arrayBuffer();
@@ -251,6 +255,9 @@ export function loadFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.startsWith("image/")) loadFile(files[i]);
     }
+    startTime=Date.now();
+    qTotal=q.length;
+    qDone=0;
     doQ();
     doQ();
 };

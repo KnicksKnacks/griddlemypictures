@@ -452,11 +452,9 @@ function GithubButton() {
   );
 }
 
-function LoadingBar() {
-  const photos = useAppSelector(selectAllPoolPhotos);
-  const total = photos.length;
-  const loaded = photos.filter((photo) => photo.webai).length;
-  const percent = (100 * loaded) / total || 100;
+function LoadingBar() {  
+  const progress = useAppSelector(getSettings).loadingProgress;
+  const percent = 100 * progress || 100;
 
   return percent === 100 ? (
     <></>
@@ -465,7 +463,7 @@ function LoadingBar() {
       <div
         className="loading_bar_loaded"
         style={{ width: `${percent}%` }}
-      ></div>
+      >{percent.toFixed(3)}%</div>
     </div>
   );
 }
