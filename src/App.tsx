@@ -9,14 +9,13 @@ import { PhotoPicker } from "./features/photoPool/PhotoPicker";
 
 function ShowPhotoCell() {
   return (
-    <div id="TheApp">
-      <PhotoPool></PhotoPool>
+    <div id="TheApp">      
       <AppButtons />
       <PageSelection />
       <div className="main_row">
         <GridSelection />
         <MainPage />
-        <SelectedPhoto />        
+        <PhotoPool/>
       </div>      
     </div>
   );

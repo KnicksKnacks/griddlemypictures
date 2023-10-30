@@ -5,12 +5,8 @@
 
 .photo_pool {
   display: flex;
-  flex-flow: row;
-  height: 20vh;
-  max-width: 100%;
-  overflow-x: scroll;
-  overflow-y: clip;
-  flex: 0 0 auto;
+  flex-flow: row wrap;      
+  flex: 1 1 auto;
 }
 
 .poolphoto_border{
