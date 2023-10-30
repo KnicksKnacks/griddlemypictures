@@ -21,7 +21,7 @@ import {
   redoAactive,
   undoAactive,
 } from "../undo";
-import { fillAll, fillPage } from "../pages/photoCellSlice";
+import { fillAll, fillPage, getAllPhotoCells } from "../pages/photoCellSlice";
 import { RootState } from "../../app/store";
 import { loadFiles } from "../photoPool/photoPoolFuncs";
 import {
@@ -468,6 +468,16 @@ function LoadingBar() {
   );
 }
 
+function Stats(){
+  const photosLoaded = useAppSelector(selectAllPoolPhotos).length;
+  const cells = useAppSelector(getAllPhotoCells);
+  const cellCnt = cells.length;
+  const cellFilled = cells.filter(c=>c.name!=='').length;
+
+  const title=`${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
+  return <div title={title} style={{margin:'0 5px'}}>Stats</div>;
+}
+
 export function AppButtons() {
   return (
     <div className="control_buttons">
@@ -504,8 +514,9 @@ export function AppButtons() {
         <ObjectFilter />
       </fieldset>
       <ResolutionSettings />
+      <Stats/>
       <ClearAllButton />
-      <GithubButton/>
+      <GithubButton/>      
       {/* <LinkGooglePhotos /> */}
       <LoadingBar />
     </div>
