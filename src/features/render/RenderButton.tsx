@@ -22,12 +22,13 @@ import {
   undoAactive,
 } from "../undo";
 import { fillAll, fillPage, getAllPhotoCells } from "../pages/photoCellSlice";
-import { RootState } from "../../app/store";
+import { RootState, store } from "../../app/store";
 import { loadFiles } from "../photoPool/photoPoolFuncs";
 import {
   getSettings,
   setFillRange,
   setHeightInches,
+  setPhotoPickerIsOpen,
   setResolution,
   setWidthInches,
 } from "../settings/settingsSlice";
@@ -438,8 +439,16 @@ function ResolutionSettings() {
 function GithubButton() {
   return (
     <>
-      <a href="https://github.com/KnicksKnacks/griddlemypictures" style={{margin: '0 10px'}}>
-        <svg viewBox="0 0 98 96" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+      <a
+        href="https://github.com/KnicksKnacks/griddlemypictures"
+        style={{ margin: "0 10px" }}
+      >
+        <svg
+          viewBox="0 0 98 96"
+          width="20px"
+          height="20px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -452,7 +461,7 @@ function GithubButton() {
   );
 }
 
-function LoadingBar() {  
+function LoadingBar() {
   const progress = useAppSelector(getSettings).loadingProgress;
   const percent = 100 * progress || 100;
 
@@ -460,22 +469,44 @@ function LoadingBar() {
     <></>
   ) : (
     <div className="loading_bar">
-      <div
-        className="loading_bar_loaded"
-        style={{ width: `${percent}%` }}
-      >{percent.toFixed(3)}%</div>
+      <div className="loading_bar_loaded" style={{ width: `${percent}%` }}>
+        {percent.toFixed(3)}%
+      </div>
     </div>
   );
 }
 
-function Stats(){
+function Stats() {
   const photosLoaded = useAppSelector(selectAllPoolPhotos).length;
   const cells = useAppSelector(getAllPhotoCells);
   const cellCnt = cells.length;
-  const cellFilled = cells.filter(c=>c.name!=='').length;
+  const cellFilled = cells.filter((c) => c.name !== "").length;
 
-  const title=`${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
-  return <div title={title} style={{margin:'0 5px'}}>Stats</div>;
+  const title = `${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
+  return (
+    <div title={title} style={{ margin: "0 5px" }}>
+      Stats
+    </div>
+  );
+}
+
+function openPicker() {
+  const popup = window.open("./photopool", "", "popup");
+  store.dispatch(setPhotoPickerIsOpen(true));
+  popup?.window.addEventListener("load", () => {
+    popup?.window.addEventListener("unload", () => {
+      console.log("PopupClosed");
+      store.dispatch(setPhotoPickerIsOpen(false));
+    });
+  });
+}
+
+function OpenPhotoPicker() {
+  return (
+    <>
+      <button onClick={openPicker}>Picker</button>
+    </>
+  );
 }
 
 export function AppButtons() {
@@ -514,9 +545,10 @@ export function AppButtons() {
         <ObjectFilter />
       </fieldset>
       <ResolutionSettings />
-      <Stats/>
+      <OpenPhotoPicker />
+      <Stats />
       <ClearAllButton />
-      <GithubButton/>      
+      <GithubButton />
       {/* <LinkGooglePhotos /> */}
       <LoadingBar />
     </div>

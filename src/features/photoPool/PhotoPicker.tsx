@@ -3,7 +3,6 @@ import { getPoolPhotoById, getSelectedPoolPhoto, getUnusedPoolPhotoIds, removeIm
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import trashIcon from './trash.svg'
 import classNames from "classnames";
-import { getSettings } from "../settings/settingsSlice";
 
 function poolImgId(name: string) {
   return `poolImg-${name}`;
@@ -57,23 +56,15 @@ export function getPoolImg(name: string) {
   return null;
 }
 
-export function PhotoPool() {
-  // const photos = useAppSelector(getUnusedPoolPhotos);
-
-  // const images = photos.map((photo) => (
-  //   <PoolPhoto key={photo.id} name={photo.id} />
-  // ));
+export function PhotoPicker() {
 
   const allPhotos = useAppSelector(selectAllPoolPhotos);
   const displayedIds = useAppSelector(getUnusedPoolPhotoIds);
-  const pickerOpen = useAppSelector(getSettings).photoPickerIsOpen;
 
-  if (pickerOpen) return <></>;
-  
   const ids = new Set(displayedIds);
   const images = allPhotos.map((photo) => (
       <PoolPhoto key={photo.id} name={photo.id} hide={!ids.has(photo.id)}/>
   ));
 
-  return <div id="photo-pool" className={styles.photo_pool} title={"Click to Select image for placement"}>{images}</div>;
+  return <div id="photo-pool" className={styles.photo_picker} title={"Click to Select image for placement"}>{images}</div>;
 }

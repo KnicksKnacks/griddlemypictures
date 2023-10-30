@@ -5,6 +5,7 @@ import { GridSelection } from "./features/pages/GridSelection";
 import { PageSelection } from "./features/pages/PageSelection";
 import { AppButtons } from "./features/render/RenderButton";
 import { SelectedPhoto } from "./features/photoPool/SelectedPhoto";
+import { PhotoPicker } from "./features/photoPool/PhotoPicker";
 
 function ShowPhotoCell() {
   return (
@@ -22,6 +23,9 @@ function ShowPhotoCell() {
 }
 
 function App() {
+  if (window.location.pathname === "/photopool"){
+    return <PhotoPicker/>
+  }
   return <ShowPhotoCell />;
 }
 

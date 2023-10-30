@@ -69,3 +69,15 @@
   align-items: center;
   margin: 2px 0;
 }
+
+
+
+.photo_picker{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.photo_picker .poolphoto{
+  height: 33vh;
+}
+

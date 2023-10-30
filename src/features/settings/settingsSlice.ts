@@ -15,7 +15,8 @@ const settingsSlice = createSlice({
     color: "white",
     fillRange: 0.25,
     googleToken: null as GoogleToken,
-    loadingProgress: 1
+    loadingProgress: 1,
+    photoPickerIsOpen: false
   },
   reducers: {
     setColor(state, action: PayloadAction<string>) {
@@ -39,6 +40,9 @@ const settingsSlice = createSlice({
     setLoadingProgress(state, action: PayloadAction<number>) {
       state.loadingProgress = action.payload;
     },
+    setPhotoPickerIsOpen(state, action: PayloadAction<boolean>) {
+      state.photoPickerIsOpen = action.payload;
+    },
   },
 });
 
@@ -51,7 +55,8 @@ export const {
   setResolution,
   setFillRange,
   setGoogleToken,
-  setLoadingProgress
+  setLoadingProgress,
+  setPhotoPickerIsOpen
 } = settingsSlice.actions;
 export function getSettings(state: RootState) {
   return state.settings;
