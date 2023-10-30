@@ -15,6 +15,7 @@ const settingsSlice = createSlice({
     color: "white",
     fillRange: 0.25,
     googleToken: null as GoogleToken,
+    loadingProgress: 1
   },
   reducers: {
     setColor(state, action: PayloadAction<string>) {
@@ -35,6 +36,9 @@ const settingsSlice = createSlice({
     setGoogleToken(state, action: PayloadAction<GoogleToken>) {
       state.googleToken = action.payload;
     },
+    setLoadingProgress(state, action: PayloadAction<number>) {
+      state.loadingProgress = action.payload;
+    },
   },
 });
 
@@ -47,6 +51,7 @@ export const {
   setResolution,
   setFillRange,
   setGoogleToken,
+  setLoadingProgress
 } = settingsSlice.actions;
 export function getSettings(state: RootState) {
   return state.settings;
