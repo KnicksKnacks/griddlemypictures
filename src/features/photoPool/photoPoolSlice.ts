@@ -187,6 +187,15 @@ export const {
   filterByRating,
   filterByObject,
 } = photoPoolSlice.actions;
+export const AllPhotoPoolActions = 
+[  addImage,
+  updatePhoto,
+  selectImage,
+  removeImage,
+  rateImage,
+  filterByRating,
+  filterByObject,
+];
 export const {
   selectById: getPoolPhotoById,
   selectIds: getPoolPhotoIds,

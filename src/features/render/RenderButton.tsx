@@ -44,6 +44,7 @@ import {
   selectImage,
 } from "../photoPool/photoPoolSlice";
 import { LinkGooglePhotos } from "../googlePhotos/GooglePhotos";
+import { OpenPhotoPicker } from "../photoPool/PhotoPicker";
 
 function DownloadOneButton() {
   const dispatch = useAppDispatch();
@@ -487,25 +488,6 @@ function Stats() {
     <div title={title} style={{ margin: "0 5px" }}>
       Stats
     </div>
-  );
-}
-
-function openPicker() {
-  const popup = window.open("./photopool", "", "popup");
-  store.dispatch(setPhotoPickerIsOpen(true));
-  popup?.window.addEventListener("load", () => {
-    popup?.window.addEventListener("unload", () => {
-      console.log("PopupClosed");
-      store.dispatch(setPhotoPickerIsOpen(false));
-    });
-  });
-}
-
-function OpenPhotoPicker() {
-  return (
-    <>
-      <button onClick={openPicker}>Picker</button>
-    </>
   );
 }
 
