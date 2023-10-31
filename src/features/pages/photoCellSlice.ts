@@ -300,6 +300,9 @@ export const placeImage =
         poolPhoto: selectedPoolPhoto,
       })
     );
+    if (cell.name){
+      dispatch(selectImage(cell.name));
+    }
   };
 
 export const removeImage =
