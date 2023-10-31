@@ -1,12 +1,14 @@
 .poolphoto {
   position: relative;
-  height: 19.5vh;
+  height: 35vh;
 }
 
 .photo_pool {
   display: flex;
   flex-flow: row wrap;      
   flex: 1 1 auto;
+  gap: 5px;
+  overflow: scroll;
 }
 
 .poolphoto_border{
