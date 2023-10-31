@@ -1,7 +1,14 @@
 import styles from "./PhotoPool.module.css";
-import { getPoolPhotoById, getSelectedPoolPhoto, getUnusedPoolPhotoIds, removeImage, selectAllPoolPhotos, selectImage } from "./photoPoolSlice";
+import {
+  getPoolPhotoById,
+  getSelectedPoolPhoto,
+  getUnusedPoolPhotoIds,
+  removeImage,
+  selectAllPoolPhotos,
+  selectImage,
+} from "./photoPoolSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import trashIcon from './trash.svg'
+import trashIcon from "./trash.svg";
 import classNames from "classnames";
 import { getSettings } from "../settings/settingsSlice";
 
@@ -9,42 +16,61 @@ function poolImgId(name: string) {
   return `poolImg-${name}`;
 }
 
-function PoolPhoto({ name, hide}: { name: string, hide:boolean }) {
-  const dispatch = useAppDispatch();
-  const isSelected = useAppSelector(getSelectedPoolPhoto)?.id===name
+type photoSize = "sm" | "md" | "lg";
 
-  const data = useAppSelector(state=>getPoolPhotoById(state,name));  
+function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
+  const dispatch = useAppDispatch();
+  const isSelected = useAppSelector(getSelectedPoolPhoto)?.id === name;
+
+  const data = useAppSelector((state) => getPoolPhotoById(state, name));
 
   function onClick() {
     dispatch(selectImage(name));
   }
 
-  function trashOnClick(){
+  function trashOnClick() {
     dispatch(removeImage(name));
   }
 
-  const border = isSelected ? 
-  ( <div className={styles.poolphoto_border}></div> ) : (<></>)
+  const border = isSelected ? (
+    <div className={styles.poolphoto_border}></div>
+  ) : (
+    <></>
+  );
 
-  const trash = isSelected ? 
-  ( <img src={trashIcon} className={styles.poolphoto_trash} alt="trash" onClick={trashOnClick}/> ) : (<></>)
+  const trash = isSelected ? (
+    <img
+      src={trashIcon}
+      className={styles.poolphoto_trash}
+      alt="trash"
+      onClick={trashOnClick}
+    />
+  ) : (
+    <></>
+  );
+
+  const ratio = data ? data.naturalSize.x / data.naturalSize.y : 1;
+  let size: photoSize = "lg";
+  if (ratio < 1.5) size = "md";
+  if (ratio < 1) size = "sm";
 
   const classes = classNames({
-    [styles.poolphoto]:true,
-    [styles.hidden]: hide
-     })
+    [styles.poolphoto]: true,
+    [styles.hidden]: hide,
+    [styles[`poolphoto_${size}`]]: true
+  });
 
   return (
     <div className={classes}>
-    <img
-      src={data?.srcUrl}
-      className={styles.poolphoto}
-      alt=""
-      onClick={onClick}      
-      id={poolImgId(name)}
-    />
-    {trash}
-    {border}
+      <img
+        src={data?.srcUrl}
+        style={{width: '100%'}}
+        alt=""
+        onClick={onClick}
+        id={poolImgId(name)}
+      />
+      {trash}
+      {border}
     </div>
   );
 }
@@ -69,11 +95,19 @@ export function PhotoPool() {
   const pickerOpen = useAppSelector(getSettings).photoPickerIsOpen;
 
   if (pickerOpen) return <></>;
-  
+
   const ids = new Set(displayedIds);
   const images = allPhotos.map((photo) => (
-      <PoolPhoto key={photo.id} name={photo.id} hide={!ids.has(photo.id)}/>
+    <PoolPhoto key={photo.id} name={photo.id} hide={!ids.has(photo.id)} />
   ));
 
-  return <div id="photo-pool" className={styles.photo_pool} title={"Click to Select image for placement"}>{images}</div>;
+  return (
+    <div
+      id="photo-pool"
+      className={styles.photo_pool}
+      title={"Click to Select image for placement"}
+    >
+      {images}
+    </div>
+  );
 }

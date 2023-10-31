@@ -1,14 +1,28 @@
+:root{
+  --poolPhotoGap: .5%;
+  --poolPhotoBaseWidth: 32.5%;
+}
 .poolphoto {
   position: relative;
-  height: 35vh;
 }
 
+.poolphoto_sm{
+  width: var(--poolPhotoBaseWidth)
+}
+.poolphoto_md{
+  width: calc(var(--poolPhotoBaseWidth)*2 + var(--poolPhotoGap))
+}
+.poolphoto_lg{
+  width: calc(var(--poolPhotoBaseWidth)*3 + 2*var(--poolPhotoGap))
+}
 .photo_pool {
   display: flex;
   flex-flow: row wrap;      
   flex: 1 1 auto;
   gap: 5px;
   overflow: scroll;
+  justify-content: start;
+  align-items: center;
 }
 
 .poolphoto_border{
