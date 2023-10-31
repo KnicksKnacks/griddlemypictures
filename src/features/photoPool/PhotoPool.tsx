@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import trashIcon from "./trash.svg";
 import classNames from "classnames";
 import { getSettings } from "../settings/settingsSlice";
+import { useEffect, useRef } from "react";
 
 function poolImgId(name: string) {
   return `poolImg-${name}`;
@@ -21,8 +22,13 @@ type photoSize = "sm" | "md" | "lg";
 function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
   const dispatch = useAppDispatch();
   const isSelected = useAppSelector(getSelectedPoolPhoto)?.id === name;
-
   const data = useAppSelector((state) => getPoolPhotoById(state, name));
+
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (isSelected && imgRef.current) imgRef.current.scrollIntoView();
+  }, [isSelected]);
 
   function onClick() {
     dispatch(selectImage(name));
@@ -57,17 +63,18 @@ function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
   const classes = classNames({
     [styles.poolphoto]: true,
     [styles.hidden]: hide,
-    [styles[`poolphoto_${size}`]]: true
+    [styles[`poolphoto_${size}`]]: true,
   });
 
   return (
     <div className={classes}>
       <img
         src={data?.srcUrl}
-        style={{width: '100%'}}
+        style={{ width: "100%" }}
         alt=""
         onClick={onClick}
         id={poolImgId(name)}
+        ref={imgRef}
       />
       {trash}
       {border}
