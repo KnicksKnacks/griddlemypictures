@@ -438,8 +438,16 @@ function ResolutionSettings() {
 function GithubButton() {
   return (
     <>
-      <a href="https://github.com/KnicksKnacks/griddlemypictures" style={{margin: '0 10px'}}>
-        <svg viewBox="0 0 98 96" width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+      <a
+        href="https://github.com/KnicksKnacks/griddlemypictures"
+        style={{ margin: "0 10px" }}
+      >
+        <svg
+          viewBox="0 0 98 96"
+          width="20px"
+          height="20px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             fillRule="evenodd"
             clipRule="evenodd"
@@ -452,7 +460,7 @@ function GithubButton() {
   );
 }
 
-function LoadingBar() {  
+function LoadingBar() {
   const progress = useAppSelector(getSettings).loadingProgress;
   const percent = 100 * progress || 100;
 
@@ -460,22 +468,25 @@ function LoadingBar() {
     <></>
   ) : (
     <div className="loading_bar">
-      <div
-        className="loading_bar_loaded"
-        style={{ width: `${percent}%` }}
-      >{percent.toFixed(3)}%</div>
+      <div className="loading_bar_loaded" style={{ width: `${percent}%` }}>
+        {percent.toFixed(3)}%
+      </div>
     </div>
   );
 }
 
-function Stats(){
+function Stats() {
   const photosLoaded = useAppSelector(selectAllPoolPhotos).length;
   const cells = useAppSelector(getAllPhotoCells);
   const cellCnt = cells.length;
-  const cellFilled = cells.filter(c=>c.name!=='').length;
+  const cellFilled = cells.filter((c) => c.name !== "").length;
 
-  const title=`${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
-  return <div title={title} style={{margin:'0 5px'}}>Stats</div>;
+  const title = `${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
+  return (
+    <div title={title} style={{ margin: "0 5px" }}>
+      Stats
+    </div>
+  );
 }
 
 export function AppButtons() {
@@ -514,9 +525,9 @@ export function AppButtons() {
         <ObjectFilter />
       </fieldset>
       <ResolutionSettings />
-      <Stats/>
+      <Stats />
       <ClearAllButton />
-      <GithubButton/>      
+      <GithubButton />
       {/* <LinkGooglePhotos /> */}
       <LoadingBar />
     </div>

@@ -1,16 +1,28 @@
+:root{
+  --poolPhotoGap: .5%;
+  --poolPhotoBaseWidth: 32.5%;
+}
 .poolphoto {
   position: relative;
-  height: 19.5vh;
 }
 
+.poolphoto_sm{
+  width: var(--poolPhotoBaseWidth)
+}
+.poolphoto_md{
+  width: calc(var(--poolPhotoBaseWidth)*2 + var(--poolPhotoGap))
+}
+.poolphoto_lg{
+  width: calc(var(--poolPhotoBaseWidth)*3 + 2*var(--poolPhotoGap))
+}
 .photo_pool {
   display: flex;
-  flex-flow: row;
-  height: 20vh;
-  max-width: 100%;
-  overflow-x: scroll;
-  overflow-y: clip;
-  flex: 0 0 auto;
+  flex-flow: row wrap;      
+  flex: 1 1 auto;
+  gap: 5px;
+  overflow: scroll;
+  justify-content: start;
+  align-items: center;
 }
 
 .poolphoto_border{
@@ -52,10 +64,22 @@
   position: absolute;  
 }
 
-.poolphoto_trash{
-  position: absolute;
-  width: 2vh;
+.poolphoto_overlay{
+  position: absolute;  
   left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  align-items: center;
+  border-radius: 25%;
+}
+
+.poolphoto_missing{
+  border: 1px solid black;
+  padding: 5px;
+  background-color: pink;
+  border-radius: 5px;
 }
 
 .hidden{
@@ -69,3 +93,15 @@
   align-items: center;
   margin: 2px 0;
 }
+
+
+
+.photo_picker{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.photo_picker .poolphoto{
+  height: 33vh;
+}
+
