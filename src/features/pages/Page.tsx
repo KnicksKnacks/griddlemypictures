@@ -5,7 +5,7 @@ import styles from "./pages.module.css";
 import { getAllPages, getCurrentPage } from "./pagesSlice";
 import { GridDef } from "./photoCellSlice";
 import { getSettings } from "../settings/settingsSlice";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 export function Page({
   grid,
   click = undefined,
