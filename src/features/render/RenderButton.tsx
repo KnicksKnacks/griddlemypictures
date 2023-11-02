@@ -22,13 +22,12 @@ import {
   undoAactive,
 } from "../undo";
 import { fillAll, fillPage, getAllPhotoCells } from "../pages/photoCellSlice";
-import { RootState, store } from "../../app/store";
+import { RootState } from "../../app/store";
 import { loadFiles } from "../photoPool/photoPoolFuncs";
 import {
   getSettings,
   setFillRange,
   setHeightInches,
-  setPhotoPickerIsOpen,
   setResolution,
   setWidthInches,
 } from "../settings/settingsSlice";
@@ -44,7 +43,6 @@ import {
   selectImage,
 } from "../photoPool/photoPoolSlice";
 import { LinkGooglePhotos } from "../googlePhotos/GooglePhotos";
-import { OpenPhotoPicker } from "../photoPool/PhotoPicker";
 
 function DownloadOneButton() {
   const dispatch = useAppDispatch();
@@ -527,7 +525,6 @@ export function AppButtons() {
         <ObjectFilter />
       </fieldset>
       <ResolutionSettings />
-      <OpenPhotoPicker />
       <Stats />
       <ClearAllButton />
       <GithubButton />

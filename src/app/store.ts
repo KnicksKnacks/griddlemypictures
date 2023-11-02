@@ -10,7 +10,6 @@ import { settingsReducer } from '../features/settings/settingsSlice';
 import { undoReducer } from '../features/undo';
 import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
 import { googleAlbumReducer } from '../features/googlePhotos/googleAlbumsSlice';
-import { photoPickerMiddleware } from '../features/photoPool/PhotoPicker';
 
 
 
@@ -65,7 +64,7 @@ const store = configureStore({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
     }
-  }).concat(photoPickerMiddleware)
+  })
 });
 
 

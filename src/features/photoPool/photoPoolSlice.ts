@@ -56,7 +56,6 @@ const photoPoolSlice = createSlice({
   name: "photopool",
   initialState: photoPoolAdapter.getInitialState({
     selectedPhoto: null as null | string,
-    message: null as null | string,
     ratingFilter: AllRatings,
     ObjectFilter: "",
   }),
@@ -77,7 +76,6 @@ const photoPoolSlice = createSlice({
       let imgName = action.payload;
       if (state.selectedPhoto === imgName) imgName = null;
       state.selectedPhoto = imgName;
-      state.message = null;
     },
     removeImage(state, action: PayloadAction<string>) {
       photoPoolAdapter.removeOne(state, action.payload);
@@ -158,7 +156,6 @@ const photoPoolSlice = createSlice({
         // So either the image was already loaded and the url is in the map,
         // or the image is missing, so the url should be cleared and the name
         // added to the missing list.
-        let msg = "";        
         state.ids.forEach((n) => {
           const name = n as string; 
           const url = blobUrlMap.get(name) || "";
@@ -168,12 +165,8 @@ const photoPoolSlice = createSlice({
               srcUrl: url
             }
           });
-          if (url ===""){
-            msg += `missing ${name}\n`;
-          }
         });
         state.selectedPhoto = null;
-        state.message = msg;
       });
   },
 });
@@ -257,9 +250,6 @@ function emptyRatingFilterSetHelper(
 
 export const getSelectedPoolPhoto = (state: RootState) =>
   getPoolPhotoById(state, state.photopool.selectedPhoto || "");
-
-export const getMessage = (state: RootState): null | string =>
-  state.photopool.message;
 
 export const getRatingFilter = (state: RootState) =>
   state.photopool.ratingFilter;
