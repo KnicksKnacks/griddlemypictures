@@ -64,10 +64,15 @@
   position: absolute;  
 }
 
-.poolphoto_trash{
-  position: absolute;
-  width: 2vh;
+.poolphoto_overlay{
+  position: absolute;  
   left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  align-items: center;
+  border-radius: 25%;
 }
 
 .hidden{

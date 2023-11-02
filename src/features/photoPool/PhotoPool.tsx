@@ -3,6 +3,7 @@ import {
   getPoolPhotoById,
   getSelectedPoolPhoto,
   getUnusedPoolPhotoIds,
+  rateImage,
   removeImage,
   selectAllPoolPhotos,
   selectImage,
@@ -27,7 +28,7 @@ function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    if (isSelected && imgRef.current) imgRef.current.scrollIntoView();
+    if (isSelected && imgRef.current) imgRef.current.scrollIntoView({behavior:"smooth", block: "nearest"});
   }, [isSelected]);
 
   function onClick() {
@@ -44,13 +45,17 @@ function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
     <></>
   );
 
-  const trash = isSelected ? (
-    <img
-      src={trashIcon}
-      className={styles.poolphoto_trash}
-      alt="trash"
-      onClick={trashOnClick}
-    />
+  const overlay = isSelected ? (
+    <div className={styles.poolphoto_overlay}>
+      <button onClick={trashOnClick}>
+      <img
+        src={trashIcon}      
+        alt="trash"        
+        style={{height: '2vh', margin:'5px'}}
+      />
+      </button>
+      <span style={{margin:'5px'}}>{data?.rating}</span>
+    </div>
   ) : (
     <></>
   );
@@ -76,7 +81,7 @@ function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
         id={poolImgId(name)}
         ref={imgRef}
       />
-      {trash}
+      {overlay}
       {border}
     </div>
   );
@@ -91,15 +96,22 @@ export function getPoolImg(name: string) {
 }
 
 export function PhotoPool() {
-  // const photos = useAppSelector(getUnusedPoolPhotos);
-
-  // const images = photos.map((photo) => (
-  //   <PoolPhoto key={photo.id} name={photo.id} />
-  // ));
-
   const allPhotos = useAppSelector(selectAllPoolPhotos);
   const displayedIds = useAppSelector(getUnusedPoolPhotoIds);
   const pickerOpen = useAppSelector(getSettings).photoPickerIsOpen;
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    function key(e: KeyboardEvent) {
+      let val = parseInt(e.key);
+      if (!isNaN(val)) {
+        dispatch(rateImage(val));
+      }
+    }
+    document.addEventListener("keydown", key);
+    return () => {
+      document.removeEventListener("keydown", key);
+    };
+  },[dispatch]);
 
   if (pickerOpen) return <></>;
 
