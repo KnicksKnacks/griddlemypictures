@@ -70,13 +70,16 @@ function PoolPhoto({ name, hide }: { name: string; hide: boolean }) {
     [styles.hidden]: hide,
     [styles[`poolphoto_${size}`]]: true,
   });
+  if (data?.srcUrl ===""){
+    return (<span className={styles.poolphoto_missing}>{name}</span>)
+  }
 
   return (
     <div className={classes}>
       <img
         src={data?.srcUrl}
-        style={{ width: "100%" }}
-        alt=""
+        style={{ width: "100%",minHeight:"30px" }}
+        alt={name}
         onClick={onClick}
         id={poolImgId(name)}
         ref={imgRef}

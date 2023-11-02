@@ -75,6 +75,13 @@
   border-radius: 25%;
 }
 
+.poolphoto_missing{
+  border: 1px solid black;
+  padding: 5px;
+  background-color: pink;
+  border-radius: 5px;
+}
+
 .hidden{
   display: none;
 }
