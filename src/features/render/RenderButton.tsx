@@ -481,7 +481,7 @@ function Stats() {
   const cellCnt = cells.length;
   const cellFilled = cells.filter((c) => c.name !== "").length;
 
-  const title = `${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
+  const title = `Version:${process.env.REACT_APP_VERSION}\n${photosLoaded} Photos\n${cellFilled}/${cellCnt} Cells Filled`;
   return (
     <div title={title} style={{ margin: "0 5px" }}>
       Stats
