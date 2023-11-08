@@ -109,6 +109,10 @@ export function PhotoPool() {
       if (!isNaN(val)) {
         dispatch(rateImage(val));
       }
+      if (e.key === " "){
+        e.preventDefault();
+        dispatch(selectImage(null));
+      }
     }
     document.addEventListener("keydown", key);
     return () => {
