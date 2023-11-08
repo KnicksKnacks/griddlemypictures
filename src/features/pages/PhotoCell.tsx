@@ -92,7 +92,8 @@ export function PhotoCell({
     y: number;
   }
 
-  const [position, setPosition] = useState<point | null>(null);
+  const [msPosition, setMsPosition] = useState<point | null>(null);
+  const [cellPosition, setCellPosition] = useState<point | null>(null);
 
   function cellClick() {
     if (cellElem.current) {
@@ -123,23 +124,24 @@ export function PhotoCell({
         })
       );
     } else {
-      setPosition({
+      if (!cell) return;
+      setMsPosition({
         x: e.pageX,
         y: e.pageY,
       });
+      setCellPosition({
+        x: cell.x,
+        y: cell.y
+      })
     }
   }
   function imgMouseMove(e: React.MouseEvent) {
-    if (!position) return;
+    if (!msPosition || !cellPosition) return;
     if (!cell) return;
 
     const scale=getScale();
-    let x = cell.x + (e.pageX - position.x)/scale;
-    let y = cell.y + (e.pageY - position.y)/scale;
-    setPosition({
-      x: e.pageX,
-      y: e.pageY,
-    });
+    let x = cellPosition.x + (e.pageX - msPosition.x)/scale;
+    let y = cellPosition.y + (e.pageY - msPosition.y)/scale;    
     dispatch(
       moveImage({
         cellId: cellId,
@@ -149,7 +151,8 @@ export function PhotoCell({
     );
   }
   function imgMouseUp() {
-    setPosition(null);
+    setMsPosition(null);
+    setCellPosition(null);
   }
 
   const photoTitle = selectedPoolPhoto ? "Click to Replace Image" : 
