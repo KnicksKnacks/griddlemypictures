@@ -124,10 +124,10 @@ function center(cell: Draft<PhotoCellData>, poolPhoto: PoolPhoto) {
   const faceCenter = poolPhoto?.centerFace || poolPhoto?.aiCenter;
   if (!faceCenter) return;
   let cx = faceCenter.x * cell.w;
-  if (cx > cell.dstW / 2) cell.x = cell.dstW / 2 - cx;
+  cell.x = cell.dstW / 2 - cx;
 
   let cy = faceCenter.y * cell.h;
-  if (cy > cell.dstH / 2) cell.y = cell.dstH / 2 - cy;
+  cell.y = cell.dstH / 2 - cy;
 
   boundsCheck(cell);
 }
