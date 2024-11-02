@@ -73,6 +73,52 @@ export const gridDefs = [
     buildRow(10),
     buildRow(5),
   ],
+  [
+    buildRow(2),
+    buildRow(2),    
+  ],
+  [
+    buildRow(3),
+    buildRow(3),
+    buildRow(3),
+  ],
+  [
+    buildRow(4),
+    buildRow([buildCol(4), buildCol(3, 3), buildCol(3, 3),buildCol(3, 3), buildCol(4)], 5),
+    buildRow(5),
+  ],
+  [
+    buildRow(5,2),
+    buildRow([buildCol(1,2),buildCol(1),buildCol(1,2)], 1.4),
+    buildRow(5,2),
+  ],
+  [
+    buildRow(8),
+    buildRow(8),    
+    buildRow(8),    
+    buildRow(8),    
+  ],
+  [
+    buildRow(7),
+    buildRow(7),    
+    buildRow(7),    
+    buildRow(7),    
+  ],
+  [
+    buildRow(9),
+    buildRow(9),    
+    buildRow(9),    
+    buildRow(9),    
+  ],
+  [
+    buildRow([
+      buildCol(4),
+      buildCol([buildRow(2,.85),buildRow(1,2.3),buildRow(2,.85)],2),
+      buildCol([buildRow(2),buildRow([buildCol(2)],1.90),buildRow(2)],2),
+      buildCol([buildRow(2,.85),buildRow(1,2.3),buildRow(2,.85)],2),
+      buildCol(4),
+    ])   
+  ],
 ].map((g) => {
   const grid: GridDef = {
     children: g,
