@@ -25,20 +25,70 @@ function buildCol(X: GridDef[] | number, flex = 1): GridDef {
 const buildRow = buildCol;
 
 export const gridDefs = [
-  [buildRow([buildCol(2), buildCol(1, 2), buildCol(2)], 2), buildRow(2)],
-  [buildRow([buildCol(3), buildCol(2, 2), buildCol(3)])],
-  [buildRow(4), buildRow(2, 2), buildRow(4)],
+  // Classics
+  [
+    buildRow([buildCol(2), buildCol(1, 2), buildCol(2)], 2), 
+    buildRow(2)
+  ],
+  [buildRow([
+    buildCol(3), 
+    buildCol(2, 2), 
+    buildCol(3)
+  ])],
+  [
+    buildRow(4), 
+    buildRow(2, 2), 
+    buildRow(4)
+  ],
   [
     buildRow([buildCol(1, 3), buildCol(2)]),
     buildRow([buildCol(2), buildCol(1, 3)]),
   ],
   [
-    buildRow([buildCol([buildRow(1, 3), buildRow(3)], 3), buildCol(2)], 2),
+    buildRow([
+      buildCol([buildRow(1, 3), buildRow(3)], 3), 
+      buildCol(2)], 2),
     buildRow([buildCol(1, 2), buildCol(2), buildCol(1, 3)]),
   ],
-  [buildRow(4), buildRow(4), buildRow(4)],
+  // Matrix
+  [
+    buildRow(2),
+    buildRow(2),    
+  ],
+  [
+    buildRow(3),
+    buildRow(3),
+    buildRow(3),
+  ],
+  [
+    buildRow(4), 
+    buildRow(4),
+    buildRow(4)
+  ],
+  // Hybrids
   [buildRow([buildCol(3), buildCol(3)], 2), buildRow(4)],
-  [buildRow(4, 2), buildRow(3), buildRow(5, 2)],
+  [
+    buildRow(4, 2), 
+    buildRow(3), 
+    buildRow(5, 2)
+  ],
+  [
+    buildRow([
+      buildCol([
+        buildRow(2), 
+        buildRow(2)], 2),
+      buildCol(3, 1),
+      buildCol([
+        buildRow(2), 
+        buildRow(2)], 2),
+    ]),
+  ],
+  [
+    buildRow(5,2),
+    buildRow([buildCol(1,2),buildCol(1),buildCol(1,2)], 1.4),
+    buildRow(5,2),
+  ],
+  //Borders
   [
     buildRow(10),
     buildRow([buildCol(6), buildCol(2, 4), buildCol(2, 4), buildCol(6)], 6),
@@ -54,15 +104,19 @@ export const gridDefs = [
     buildRow([buildCol(4), buildCol(2, 2), buildCol(2, 2), buildCol(4)], 4),
     buildRow(6),
   ],
-  [buildRow(6), buildRow(6)],
-  [buildRow(5), buildRow(5)],
-  [buildRow(5), buildRow(6)],
+  [
+    buildRow(4),
+    buildRow([buildCol(4), buildCol(3, 3), buildCol(3, 3),buildCol(3, 3), buildCol(4)], 5),
+    buildRow(5),
+  ],
   [
     buildRow([
-      buildCol([buildRow(2), buildRow(2)], 2),
-      buildCol(3, 1),
-      buildCol([buildRow(2), buildRow(2)], 2),
-    ]),
+      buildCol(4),
+      buildCol([buildRow(2,.85),buildRow(1,2.3),buildRow(2,.85)],2),
+      buildCol([buildRow(2),buildRow([buildCol(2)],1.90),buildRow(2)],2),
+      buildCol([buildRow(2,.85),buildRow(1,2.3),buildRow(2,.85)],2),
+      buildCol(4),
+    ])   
   ],
   [
     buildRow(5),
@@ -73,6 +127,29 @@ export const gridDefs = [
     buildRow(10),
     buildRow(5),
   ],
+  // Denser grids
+  [buildRow(6), buildRow(6)],
+  [buildRow(5), buildRow(5)],
+  [buildRow(5), buildRow(6)],
+  [
+    buildRow(7),
+    buildRow(7),    
+    buildRow(7),    
+    buildRow(7),    
+  ],
+  [
+    buildRow(8),
+    buildRow(8),    
+    buildRow(8),    
+    buildRow(8),    
+  ],
+  [
+    buildRow(9),
+    buildRow(9),    
+    buildRow(9),    
+    buildRow(9),    
+  ],
+
 ].map((g) => {
   const grid: GridDef = {
     children: g,
