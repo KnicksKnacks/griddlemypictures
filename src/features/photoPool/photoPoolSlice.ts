@@ -9,7 +9,6 @@ import {  RootState } from "../../app/store";
 import { FillPageAction, PlaceImageAction } from "../pages/photoCellSlice";
 import { ClearPageAction } from "../pages/pagesSlice";
 import { ImportAction } from "../undo";
-import { ObjectDetectionPrediction } from "@visheratin/web-ai";
 import { blobUrlMap } from "./photoPoolFuncs";
 
 export interface Box {
@@ -33,7 +32,10 @@ export interface PoolPhoto {
   faces: Box[];
   centerFace?: Point;  
   
-  webai?: ObjectDetectionPrediction[] | undefined;
+  // `webai` previously held AI object-detection results. AI libs were
+  // removed; keep a loose type here so the rest of the app can store
+  // annotations if/when a new implementation is added.
+  webai?: Array<{ class: string; x: number; y: number; width: number; height: number }> | undefined;
   aiCenter?: Point;
   aiRating?: number;
 }

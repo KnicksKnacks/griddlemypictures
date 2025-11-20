@@ -1,5 +1,9 @@
 import localforage from "localforage";
-import * as faceapi from "face-api.js";
+// face-api.js and web-ai have been removed to reduce transitive vulnerabilities.
+// The original code used face detection and object-detection models here.
+// For now we provide lightweight stubs so the app can build and function
+// without runtime AI functionality. Replace these stubs with a safe
+// implementation or a vetted library when ready.
 import {
   Box,
   Point,
@@ -9,20 +13,16 @@ import {
   updatePhoto,
 } from "./photoPoolSlice";
 import { store } from "../../app/store";
-import {
-  ImageModel,
-  ObjectDetectionModel,
-  ObjectDetectionPrediction,
-  SessionParams
-} from "@visheratin/web-ai";
 import { MediaItem } from "../googlePhotos/GooglePhotosTypes";
 import { googlePhotosConfig } from "../googlePhotos/GooglePhotos";
 import { setLoadingProgress } from "../settings/settingsSlice";
+// web-ai removed — provide local type aliases for compatibility.
+type ObjectDetectionPrediction = { class: string; x: number; y: number; width: number; height: number };
 
 const imgBlob = localforage.createInstance({ name: "imgBlob" });
 export const blobUrlMap = new Map<string, string>();
 
-let model: ObjectDetectionModel | null = null;
+let model: null = null;
 function calcAiStuff(webai: ObjectDetectionPrediction[] | undefined) {
   let SubjectCount = 0;
   const centerFinder = new CenterOfBoxes();
@@ -50,21 +50,24 @@ function calcAiStuff(webai: ObjectDetectionPrediction[] | undefined) {
   return {};
 }
 
-async function webAiProcess(data: { name: string; dataUrl: string }) {
-  if (model) {
-    console.log(`Inference of ${data.name} starting`);
-    const output = await model.process(data.dataUrl);
-    console.log(
-      `Inference of ${data.name} finished in ${output.elapsed} seconds.`
-    );
-    store.dispatch(
-      updatePhoto({
-        id: data.name,
-        webai: output.objects,
-        ...calcAiStuff(output.objects),
-      })
-    );
-  }
+// web-ai inference is disabled. This is a no-op placeholder so images
+// don't get AI annotations while the dependency is removed.
+async function webAiProcess(_data: { name: string; dataUrl: string }) {
+  // if (model) {
+  //   console.log(`Inference of ${data.name} starting`);
+  //   const output = await model.process(data.dataUrl);
+  //   console.log(
+  //     `Inference of ${data.name} finished in ${output.elapsed} seconds.`
+  //   );
+  //   store.dispatch(
+  //     updatePhoto({
+  //       id: data.name,
+  //       webai: output.objects,
+  //       ...calcAiStuff(output.objects),
+  //     })
+  //   );
+  // }
+  return;
 }
 
 async function loadImage(name: string) {
@@ -102,14 +105,11 @@ async function loadImages() {
 }
 loadImages();
 
+// Previously this loaded face-api and web-ai models. With those
+// dependencies removed we just provide a resolved setup so other code
+// can continue to call into these modules without waiting for models.
 async function setup() {
-  const faceLoad = faceapi.nets.ssdMobilenetv1.loadFromUri("./weights/");
-  SessionParams.numThreads=4;
-  const webAiLoad = ImageModel.create("yolos-tiny-quant");
-  await Promise.allSettled([faceLoad, webAiLoad]);
-  const result = await webAiLoad;
-  console.log(result.elapsed);
-  model = result.model as ObjectDetectionModel;
+  // no-op
 }
 setup();
 
@@ -185,38 +185,47 @@ async function InitInPool(
   });
 }
 
+// Face detection disabled — stub that clears/initializes face data.
 async function DetectFaces(name: string, img: HTMLImageElement) {
-  const faces = await faceapi.detectAllFaces(img);
-  if (faces.length > 0) {
-    const faceBoxes: Box[] = [];
-    let centerFace: Point | undefined = undefined;
-    let centerFinder = new CenterOfBoxes();
-    faces.forEach((face) => {
-      faceBoxes.push({
-        left: face.relativeBox.left,
-        right: face.relativeBox.right,
-        top: face.relativeBox.top,
-        bottom: face.relativeBox.bottom,
-      });
-      centerFinder.add(face.relativeBox);
-    });
-    centerFace = centerFinder.getcenter();
-    store.dispatch(
-      updatePhoto({
-        id: name,
-        faces: faceBoxes,
-        centerFace: centerFace,
-      })
-    );
-  }
+  // const faces = await faceapi.detectAllFaces(img);
+  // if (faces.length > 0) {
+  //   const faceBoxes: Box[] = [];
+  //   let centerFace: Point | undefined = undefined;
+  //   let centerFinder = new CenterOfBoxes();
+  //   faces.forEach((face) => {
+  //     faceBoxes.push({
+  //       left: face.relativeBox.left,
+  //       right: face.relativeBox.right,
+  //       top: face.relativeBox.top,
+  //       bottom: face.relativeBox.bottom,
+  //     });
+  //     centerFinder.add(face.relativeBox);
+  //   });
+  //   centerFace = centerFinder.getcenter();
+  //   store.dispatch(
+  //     updatePhoto({
+  //       id: name,
+  //       faces: faceBoxes,
+  //       centerFace: centerFace,
+  //     })
+  //   );
+  // }
+
+
+  // No detection available; ensure fields exist but are empty.
+  store.dispatch(
+    updatePhoto({
+      id: name,
+      faces: [],
+      centerFace: undefined,
+    })
+  );
 }
 
 async function aiHelper(name: string, img: HTMLImageElement) {
   await DetectFaces(name, img);
-  await webAiProcess({
-    name: name,
-    dataUrl: getSmallDataUrl(img, 300),
-  });
+  // AI processing disabled; keep flow consistent for future re-enablement.
+  await webAiProcess({ name: name, dataUrl: getSmallDataUrl(img, 300) });
 }
 
 
